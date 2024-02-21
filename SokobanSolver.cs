@@ -27,32 +27,41 @@ namespace Sokoban_Imperative
 
         static bool SolvePuzzle(SokobanPuzzle startState)
         {
-            Queue<SokobanPuzzle> queue = new Queue<SokobanPuzzle>();
+            Stack<SokobanPuzzle> stack = new Stack<SokobanPuzzle>();
             HashSet<string> visited = new HashSet<string>();
             
-            queue.Enqueue(startState);
+            stack.Push(startState);
             visited.Add(startState.ToString());
 
-            while (queue.Count > 0)
+            while (stack.Count > 0)
             {
-                SokobanPuzzle current = queue.Dequeue();
+                SokobanPuzzle current = stack.Peek();
 
                 if (current.IsSolved())
                 {
                     return true;
                 }
 
+                bool foundMove = false;
+
                 foreach (SokobanPuzzle next in current.GetPossibleMoves())
                 {
                     string nextState = next.ToString();
                     if (!visited.Contains(nextState))
                     {
-                        queue.Enqueue(next);
+                        stack.Push(next);
                         visited.Add(nextState);
+                        foundMove = true;
+                        break;
                     }
                 }
-            }
 
+                if (!foundMove)
+                {
+                    stack.Pop();
+                }
+            }
+            
             return false;
         }
     }
