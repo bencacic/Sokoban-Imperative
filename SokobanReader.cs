@@ -1,30 +1,53 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace Sokoban_Imperative
 {
     public class SokobanReader
     {
-        // Reads from .txt file to have puzzle initialized
         public static TileType[,] FromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
-            int rows = lines.Length;
+            int rows = lines.Length - 1;
             int cols = lines[0].Length;
-
-            TileType[,] puzzle = new TileType[rows, cols];
+            
+            // Just for testing purposes
+            // Console.WriteLine("File Content:");
+            // foreach (string line in lines)
+            // {
+            //     string trimmedLine = line.Trim();
+            //     Console.WriteLine(trimmedLine);
+            // }
+            
+            int colsMax = lines.Max(line => line.Length);
+            
+            TileType[,] puzzle = new TileType[rows, colsMax];
 
             for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < cols; j++)
+                string trimmedLine = lines[i].Trim();
+
+                for (int j = 0; j < trimmedLine.Length; j++)
                 {
-                    char symbol = lines[i][j];
+                    char symbol = trimmedLine[j];
                     puzzle[i, j] = InitTile(symbol);
                 }
             }
 
+            // Just for testing purposes (makes sure that the puzzle object getting initialized)
+            // Console.WriteLine("Object to string test: ");
+            // for (int i = 0; i < rows; i++)
+            // {
+            //     for (int j = 0; j < colsMax; j++)
+            //     {
+            //         Console.WriteLine(puzzle[i, j]);
+            //     }
+            // }
+            
             return puzzle;
         }
+        
         
         // Builds the initial puzzle object from the input
         private static TileType InitTile(char symbol)
@@ -43,6 +66,8 @@ namespace Sokoban_Imperative
                     return TileType.Box;
                 case 'G':
                     return TileType.BoxGoal;
+                case 'H':
+                    return TileType.Goal;
                 default:
                     throw new ArgumentException("Invalid character in the puzzle.");
             }
