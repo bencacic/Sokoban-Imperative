@@ -42,6 +42,7 @@
     <ItemGroup>
         <Compile Include="Properties\AssemblyInfo.cs"/>
         <Compile Include="SokobanPuzzle.cs" />
+        <Compile Include="SokobanReader.cs" />
         <Compile Include="SokobanSolver.cs" />
     </ItemGroup>
     <ItemGroup>

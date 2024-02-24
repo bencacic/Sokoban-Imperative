@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.Security;
+using System.Text;
+
 
 namespace Sokoban_Imperative
 {
-    enum TileType
+    public enum TileType
     {
         Wall,
         Empty,
@@ -23,8 +25,7 @@ namespace Sokoban_Imperative
         const int Left = 3;
         private TileType[,] state;
         
-        //this constructor is meant to build from an existing puzzle object, hence the error, so
-        //TODO - build a proper constructor
+        // This constructor copies an existing puzzle object, so that the game state can be modified.
         public SokobanPuzzle(TileType[,] initialState)
         {
             state = (TileType[,])initialState.Clone();
@@ -140,10 +141,39 @@ namespace Sokoban_Imperative
             return new SokobanPuzzle(newState);
         }
 
-        //TODO - convert a puzzle to a string, which will work with a constructor here to rebuild it into an object.
+        // Converts a puzzle object into a string
         public override string ToString()
         {
-            return "";
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < state.GetLength(0); i++)
+            {
+                for (int j = 0; j < state.GetLength(1); j++)
+                {
+                    switch (state[i, j])
+                    {
+                        case TileType.Wall:
+                            sb.Append('X');
+                            break;
+                        case TileType.Empty:
+                            sb.Append(' ');
+                            break;
+                        case TileType.Player:
+                            sb.Append('O');
+                            break;
+                        case TileType.PlayerGoal:
+                            sb.Append('P');
+                            break;
+                        case TileType.Box:
+                            sb.Append('B');
+                            break;
+                        case TileType.BoxGoal:
+                            sb.Append('G');
+                            break;
+                    }
+                }
+                sb.AppendLine();
+            }
+            return sb.ToString();
         }
     }
 }

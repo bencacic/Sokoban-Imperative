@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Sokoban_Imperative
 {
@@ -8,7 +7,8 @@ namespace Sokoban_Imperative
     {
         static void Main(string[] args)
         {
-            TileType[,] importPuzzle; //placeholder stuff here, swap out for whatever we use for file input
+            const string filePath = "./puzzle.txt";
+            TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
 
             SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
 
