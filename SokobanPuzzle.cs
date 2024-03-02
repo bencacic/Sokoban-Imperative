@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Configuration;
-using System.Security;
 using System.Text;
 
 
@@ -17,23 +15,27 @@ namespace Sokoban_Imperative
         Goal
     }
     
+    public enum Direction
+    {
+        Up,
+        Down,
+        Left,
+        Right
+    }
+    
     public class SokobanPuzzle
     {
-        const int Up = 0;
-        const int Down = 1;
-        const int Right = 2;
-        const int Left = 3;
-        private TileType[,] state;
+        private readonly TileType[,] _state;
         
         // This constructor copies an existing puzzle object, so that the game state can be modified.
         public SokobanPuzzle(TileType[,] initialState)
         {
-            state = (TileType[,])initialState.Clone();
+            _state = (TileType[,])initialState.Clone();
         }
 
         public bool IsSolved()
         {
-            foreach (var tile in state)
+            foreach (var tile in _state)
             {
                 if (tile == TileType.Box)
                     return false;
@@ -44,32 +46,24 @@ namespace Sokoban_Imperative
         public IEnumerable<SokobanPuzzle> GetPossibleMoves()
         {
             List<SokobanPuzzle> possibleMoves = new List<SokobanPuzzle>();
-            for (int i = 0; i < state.GetLength(0); i++)
+            int[,] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } }; // Up, Down, Left, Right
+            
+            for (int i = 0; i < _state.GetLength(0); i++)
             {
-                for (int j = 0; j < state.GetLength(1); j++)
+                for (int j = 0; j < _state.GetLength(1); j++)
                 {
-                    if (state[i, j] == TileType.Player)
+                    if (_state[i, j] == TileType.Player)
                     {
-                        if (IsValidMove(i - 1, j, Up))
+                        for (int k = 0; k < directions.GetLength(0); k++)
                         {
-                            SokobanPuzzle moveUp = MovePLayer(i, j, i - 1, j);
-                            possibleMoves.Add(moveUp);
-                        } 
-                        if (IsValidMove(i + 1, j, Down))
-                        {
-                            SokobanPuzzle moveDown = MovePLayer(i, j, i + 1, j);
-                            possibleMoves.Add(moveDown);
-                        }
-                        if (IsValidMove(i, j - 1, Right))
-                        {
-                            SokobanPuzzle moveRight = MovePLayer(i, j, i, j - 1);
-                            possibleMoves.Add(moveRight);
-                        }
+                            int newX = i + directions[k, 0];
+                            int newY = j + directions[k, 1];
 
-                        if (IsValidMove(i, j + 1, Left))
-                        {
-                            SokobanPuzzle moveLeft = MovePLayer(i, j, i, j + 1);
-                            possibleMoves.Add(moveLeft);
+                            if (IsValidMove(newX, newY, (Direction)k))
+                            {
+                                SokobanPuzzle newMove = MovePLayer(i, j, newX, newY);
+                                possibleMoves.Add(newMove);
+                            }
                         }
 
                         break;
@@ -80,46 +74,33 @@ namespace Sokoban_Imperative
             return possibleMoves;
         }
 
-        private bool IsValidMove(int row, int col, int direction)
+        private bool IsValidMove(int row, int col, Direction direction)
         {
-            if (row < 0 || row >= state.GetLength(0) || col < 0 || col >= state.GetLength(1))
+            if (row < 0 || row >= _state.GetLength(0) || col < 0 || col >= _state.GetLength(1))
                 return false;
 
-            if (state[row, col] != TileType.Wall)
+            TileType currentTile = _state[row, col];
+
+            if (currentTile == TileType.Wall)
+                return false;
+
+            if (currentTile == TileType.Box || currentTile == TileType.BoxGoal)
             {
-                if (state[row, col] == TileType.Box || state[row, col] == TileType.BoxGoal)
-                {
-                    int behindRow = row, behindCol = col;
-                    switch (direction)
-                    {
-                        case Up:
-                            behindRow += 1;
-                            break;
-                        case Down:
-                            behindRow -= 1;
-                            break;
-                        case Right:
-                            behindCol -= 1;
-                            break;
-                        case Left:
-                            behindCol += 1;
-                            break;
-                    }
+                int behindRow = row + (direction == Direction.Down ? 1 : direction == Direction.Up ? -1 : 0);
+                int behindCol = col + (direction == Direction.Right ? -1 : direction == Direction.Left ? 1 : 0);
 
-                    if (state[behindRow, behindCol] == TileType.Wall || state[behindRow, behindCol] == TileType.Box || 
-                        state[behindRow, behindCol] == TileType.BoxGoal)
-                        return false;
-                }
+                TileType behindTile = _state[behindRow, behindCol];
 
-                return true;
+                if (behindTile == TileType.Wall || behindTile == TileType.Box || behindTile == TileType.BoxGoal)
+                    return false;
             }
 
-            return false;
+            return true;
         }
 
         private SokobanPuzzle MovePLayer(int fromRow, int fromCol, int toRow, int toCol)
         {
-            TileType[,] newState = (TileType[,])state.Clone();
+            TileType[,] newState = (TileType[,])_state.Clone();
             
             // Move the player to the destination space
             newState[toRow, toCol] = newState[fromRow, fromCol] == TileType.PlayerGoal ? 
@@ -145,11 +126,11 @@ namespace Sokoban_Imperative
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < state.GetLength(0); i++)
+            for (int i = 0; i < _state.GetLength(0); i++)
             {
-                for (int j = 0; j < state.GetLength(1); j++)
+                for (int j = 0; j < _state.GetLength(1); j++)
                 {
-                    switch (state[i, j])
+                    switch (_state[i, j])
                     {
                         case TileType.Wall:
                             sb.Append('X');
