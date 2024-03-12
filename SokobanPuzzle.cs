@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -37,7 +38,7 @@ namespace Sokoban_Imperative
         {
             foreach (var tile in _state)
             {
-                if (tile == TileType.Box)
+                if (tile == TileType.Goal || tile == TileType.PlayerGoal)
                     return false;
             }
             return true;
@@ -102,9 +103,10 @@ namespace Sokoban_Imperative
         {
             TileType[,] newState = (TileType[,])_state.Clone();
             
+            bool isGoalSpace = newState[toRow, toCol] == TileType.Goal || newState[toRow, toCol] == TileType.BoxGoal;
+            
             // Move the player to the destination space
-            newState[toRow, toCol] = newState[fromRow, fromCol] == TileType.PlayerGoal ? 
-                TileType.PlayerGoal : TileType.Player;
+            newState[toRow, toCol] = isGoalSpace ? TileType.PlayerGoal : TileType.Player;
 
             // Update the source space
             newState[fromRow, fromCol] = newState[fromRow, fromCol] == TileType.PlayerGoal ? 
@@ -149,6 +151,9 @@ namespace Sokoban_Imperative
                             break;
                         case TileType.BoxGoal:
                             sb.Append('G');
+                            break;
+                        case TileType.Goal:
+                            sb.Append('H');
                             break;
                     }
                 }

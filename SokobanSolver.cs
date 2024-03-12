@@ -8,7 +8,7 @@ namespace Sokoban_Imperative
     {
         static void Main(string[] args)
         {
-            const string filePath = "./puzzle.txt";
+            const string filePath = "../../puzzle.txt";
 
             TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
 
@@ -45,6 +45,7 @@ namespace Sokoban_Imperative
 
                 if (current.IsSolved())
                 {
+                    Console.WriteLine(current.ToString());
                     return true;
                 }
 
