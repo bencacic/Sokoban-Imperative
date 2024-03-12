@@ -88,7 +88,7 @@ namespace Sokoban_Imperative
             if (currentTile == TileType.Box || currentTile == TileType.BoxGoal)
             {
                 int behindRow = row + (direction == Direction.Down ? 1 : direction == Direction.Up ? -1 : 0);
-                int behindCol = col + (direction == Direction.Right ? -1 : direction == Direction.Left ? 1 : 0);
+                int behindCol = col + (direction == Direction.Right ? 1 : direction == Direction.Left ? -1 : 0);
 
                 TileType behindTile = _state[behindRow, behindCol];
 
@@ -105,22 +105,25 @@ namespace Sokoban_Imperative
             
             bool isGoalSpace = newState[toRow, toCol] == TileType.Goal || newState[toRow, toCol] == TileType.BoxGoal;
             
-            // Move the player to the destination space
-            newState[toRow, toCol] = isGoalSpace ? TileType.PlayerGoal : TileType.Player;
-
-            // Update the source space
-            newState[fromRow, fromCol] = newState[fromRow, fromCol] == TileType.PlayerGoal ? 
-                TileType.Goal : TileType.Empty;
-
             // If the destination space contains a box or a box on a goal, move the box accordingly
             if (newState[toRow, toCol] == TileType.Box || newState[toRow, toCol] == TileType.BoxGoal)
             {
                 int boxToRow = toRow + (toRow - fromRow);
                 int boxToCol = toCol + (toCol - fromCol);
-                newState[boxToRow, boxToCol] = newState[toRow, toCol] == TileType.BoxGoal ? 
-                    TileType.Goal : TileType.Box;
+
+                newState[boxToRow, boxToCol] = newState[boxToRow, boxToCol] == TileType.Goal ? 
+                    TileType.BoxGoal : TileType.Box;
+                newState[toRow, toCol] = newState[toRow, toCol] == TileType.BoxGoal ? 
+                    TileType.Goal : TileType.Empty;
             }
             
+            // Move the player to the destination space
+            newState[toRow, toCol] = isGoalSpace ? TileType.PlayerGoal : TileType.Player;
+            
+            // Update the source space
+            newState[fromRow, fromCol] = newState[fromRow, fromCol] == TileType.PlayerGoal ? 
+                TileType.Goal : TileType.Empty;
+                        
             return new SokobanPuzzle(newState);
         }
 

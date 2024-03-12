@@ -42,10 +42,10 @@ namespace Sokoban_Imperative
             while (stack.Count > 0)
             {
                 SokobanPuzzle current = stack.Peek();
-
+                Console.WriteLine(current.ToString());
+                
                 if (current.IsSolved())
                 {
-                    Console.WriteLine(current.ToString());
                     return true;
                 }
 
