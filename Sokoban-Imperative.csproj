@@ -44,6 +44,7 @@
         <Compile Include="SokobanPuzzle.cs" />
         <Compile Include="SokobanReader.cs" />
         <Compile Include="SokobanSolver.cs" />
+        <Compile Include="SokobanTester.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="README.md" />
