@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Sokoban_Imperative
 {
@@ -9,33 +8,40 @@ namespace Sokoban_Imperative
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Enter the filepath:");
+            Console.WriteLine("Enter the filepath, or test:");
             string filePath = Console.ReadLine();
-        
-            TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
-
-            if (importPuzzle == null)
-            {
-                Console.WriteLine("Failed to import puzzle from the specified file.");
-                return;
-            }
-
-            SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
             
-            // Just for testing purposes
-            // Console.WriteLine("ToString test:");
-            // Console.WriteLine(puzzle.ToString());
-            
-            bool solved = SolvePuzzle(puzzle);
-
-            if (solved)
+            if (filePath == "test")
             {
-                Console.WriteLine("Puzzle solved: ");
-                Console.WriteLine(puzzle.ToString());
+                SokobanTester.Test();
             }
             else
             {
-                Console.WriteLine("No solution found.");
+                TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
+                
+                if (importPuzzle == null)
+                {
+                    Console.WriteLine("Failed to import puzzle from the specified file.");
+                    return;
+                }
+                
+                SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
+                            
+                // Just for testing purposes
+                // Console.WriteLine("ToString test:");
+                // Console.WriteLine(puzzle.ToString());
+                            
+                bool solved = SolvePuzzle(puzzle);
+                
+                if (solved)
+                {
+                    Console.WriteLine("Puzzle solved: ");
+                    Console.WriteLine(puzzle.ToString());
+                }
+                else
+                {
+                    Console.WriteLine("No solution found.");
+                }
             }
         }
 
