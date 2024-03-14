@@ -47,6 +47,7 @@
         <Compile Include="SokobanTester.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="puzzle.txt" />
       <Content Include="README.md" />
       <Content Include="testPuzzles\puzzle1.txt" />
     </ItemGroup>

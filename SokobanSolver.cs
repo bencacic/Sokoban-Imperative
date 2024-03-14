@@ -31,7 +31,7 @@ namespace Sokoban_Imperative
             }
         }
 
-        static bool SolvePuzzle(SokobanPuzzle startState)
+        public static bool SolvePuzzle(SokobanPuzzle startState)
         {
             Stack<SokobanPuzzle> stack = new Stack<SokobanPuzzle>();
             HashSet<string> visited = new HashSet<string>();
