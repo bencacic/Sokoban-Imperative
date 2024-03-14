@@ -58,15 +58,15 @@ namespace Sokoban_Imperative
                     return TileType.Wall;
                 case ' ':
                     return TileType.Empty;
-                case 'O':
-                    return TileType.Player;
                 case 'P':
+                    return TileType.Player;
+                case 'O':
                     return TileType.PlayerGoal;
                 case 'B':
                     return TileType.Box;
-                case 'G':
-                    return TileType.BoxGoal;
                 case 'H':
+                    return TileType.BoxGoal;
+                case 'G':
                     return TileType.Goal;
                 default:
                     throw new ArgumentException("Invalid character in the puzzle.");
