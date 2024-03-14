@@ -144,19 +144,19 @@ namespace Sokoban_Imperative
                             sb.Append(' ');
                             break;
                         case TileType.Player:
-                            sb.Append('O');
+                            sb.Append('P');
                             break;
                         case TileType.PlayerGoal:
-                            sb.Append('P');
+                            sb.Append('O');
                             break;
                         case TileType.Box:
                             sb.Append('B');
                             break;
                         case TileType.BoxGoal:
-                            sb.Append('G');
+                            sb.Append('H');
                             break;
                         case TileType.Goal:
-                            sb.Append('H');
+                            sb.Append('G');
                             break;
                     }
                 }

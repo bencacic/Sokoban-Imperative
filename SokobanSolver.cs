@@ -8,9 +8,17 @@ namespace Sokoban_Imperative
     {
         static void Main(string[] args)
         {
-            const string filePath = "../../puzzle.txt";
 
+            Console.WriteLine("Enter the filepath:");
+            string filePath = Console.ReadLine();
+        
             TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
+
+            if (importPuzzle == null)
+            {
+                Console.WriteLine("Failed to import puzzle from the specified file.");
+                return;
+            }
 
             SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
             
