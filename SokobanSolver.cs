@@ -9,10 +9,11 @@ namespace Sokoban_Imperative
         static void Main(string[] args)
         {
 
-            Console.WriteLine("Enter the filepath:");
+           Console.WriteLine("Enter the filepath:");
             string filePath = Console.ReadLine();
         
             TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
+           // TileType[,] importPuzzle = SokobanReader.FromFile("../../puzzle.txt");
 
             if (importPuzzle == null)
             {

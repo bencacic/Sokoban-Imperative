@@ -46,8 +46,13 @@
         <Compile Include="SokobanSolver.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="puzzle.txt" />
       <Content Include="README.md" />
       <Content Include="testPuzzles\puzzle1.txt" />
+      <Content Include="testPuzzles\puzzle3.txt" />
+      <Content Include="testPuzzles\puzzleS1.txt" />
+      <Content Include="testPuzzles\Upuzzle1.txt" />
+      <Content Include="testPuzzles\Upuzzle2.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
