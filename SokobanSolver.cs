@@ -13,7 +13,7 @@ namespace Sokoban_Imperative
             string filePath = Console.ReadLine();
         
             TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
-           // TileType[,] importPuzzle = SokobanReader.FromFile("../../puzzle.txt");
+           // TileType[,] importPuzzle = SokobanReader.FromFile("../../testPuzzles/Upuzzle1.txt");
 
             if (importPuzzle == null)
             {

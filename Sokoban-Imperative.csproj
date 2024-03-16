@@ -49,10 +49,20 @@
       <Content Include="puzzle.txt" />
       <Content Include="README.md" />
       <Content Include="testPuzzles\puzzle1.txt" />
-      <Content Include="testPuzzles\puzzle3.txt" />
-      <Content Include="testPuzzles\puzzleS1.txt" />
+      <Content Include="testPuzzles\SPuzzle2.txt" />
+      <Content Include="testPuzzles\Upuzzle10.txt" />
+      <Content Include="testPuzzles\Upuzzle11.txt" />
+      <Content Include="testPuzzles\Upuzzle12.txt" />
+      <Content Include="testPuzzles\Upuzzle3.txt" />
+      <Content Include="testPuzzles\Spuzzle1.txt" />
       <Content Include="testPuzzles\Upuzzle1.txt" />
       <Content Include="testPuzzles\Upuzzle2.txt" />
+      <Content Include="testPuzzles\Upuzzle4.txt" />
+      <Content Include="testPuzzles\Upuzzle5.txt" />
+      <Content Include="testPuzzles\Upuzzle6.txt" />
+      <Content Include="testPuzzles\UPuzzle7.txt" />
+      <Content Include="testPuzzles\Upuzzle8.txt" />
+      <Content Include="testPuzzles\Upuzzle9.txt" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets"/>
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
