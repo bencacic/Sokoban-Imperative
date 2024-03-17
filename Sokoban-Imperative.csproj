@@ -50,6 +50,11 @@
       <Content Include="README.md" />
       <Content Include="testPuzzles\puzzle1.txt" />
       <Content Include="testPuzzles\SPuzzle2.txt" />
+      <Content Include="testPuzzles\Spuzzle3.txt" />
+      <Content Include="testPuzzles\Spuzzle4.txt" />
+      <Content Include="testPuzzles\Spuzzle5.txt" />
+      <Content Include="testPuzzles\Spuzzle6.txt" />
+      <Content Include="testPuzzles\Spuzzle7.txt" />
       <Content Include="testPuzzles\Upuzzle10.txt" />
       <Content Include="testPuzzles\Upuzzle11.txt" />
       <Content Include="testPuzzles\Upuzzle12.txt" />
