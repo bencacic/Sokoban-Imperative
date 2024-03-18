@@ -31,8 +31,8 @@ namespace Sokoban_Imperative
 
             if (solved)
             {
-                Console.WriteLine("Puzzle solved: ");
-                Console.WriteLine(puzzle.ToString());
+                //Console.WriteLine("Puzzle solved: ");
+                //Console.WriteLine(puzzle.ToString());
             }
             else
             {
@@ -44,17 +44,20 @@ namespace Sokoban_Imperative
         {
             Stack<SokobanPuzzle> stack = new Stack<SokobanPuzzle>();
             HashSet<string> visited = new HashSet<string>();
-            
+            //Console.WriteLine(startState.ToString());
             stack.Push(startState);
             visited.Add(startState.ToString());
-
+            
             while (stack.Count > 0)
             {
                 SokobanPuzzle current = stack.Peek();
-                Console.WriteLine(current.ToString());
+               // Console.WriteLine(current.ToString());
                 
                 if (current.IsSolved())
                 {
+                    //PrintSolution(startState, stack);
+                    Console.WriteLine("Puzzle solved: ");
+                    SokobanPrint.PrintSolution(startState, stack);
                     return true;
                 }
 
@@ -77,7 +80,7 @@ namespace Sokoban_Imperative
                     stack.Pop();
                 }
             }
-            
+            SokobanPrint.PrintSolution(startState, stack);
             return false;
         }
     }
