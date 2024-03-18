@@ -40,7 +40,7 @@ namespace Sokoban_Imperative
                     {
                         SokobanPrint.PrintSolution(puzzle, solutionStack);
                         Console.WriteLine("Puzzle solved.");
-                        
+
                     }
                     else
                     {
@@ -54,6 +54,10 @@ namespace Sokoban_Imperative
                 catch (ArgumentException ex)
                 {
                     Console.WriteLine(ex.Message);
+                }
+                catch (IndexOutOfRangeException)
+                {
+                    Console.WriteLine("File was empty");
                 }
             }
         }
