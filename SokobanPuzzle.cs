@@ -27,7 +27,8 @@ namespace Sokoban_Imperative
     public class SokobanPuzzle
     {
         private readonly TileType[,] _state;
-        
+        // Add a property to expose the state field
+        public TileType[,] State => _state;
         // This constructor copies an existing puzzle object, so that the game state can be modified.
         public SokobanPuzzle(TileType[,] initialState)
         {
