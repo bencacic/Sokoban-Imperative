@@ -4,21 +4,13 @@ using System.Linq;
 
 namespace Sokoban_Imperative
 {
-    public class SokobanReader
+    public static class SokobanReader
     {
         public static TileType[,] FromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
-            int rows = lines.Length - 1;
+            int rows = lines.Length;
             int cols = lines[0].Length;
-            
-            // Just for testing purposes
-            // Console.WriteLine("File Content:");
-            // foreach (string line in lines)
-            // {
-            //     string trimmedLine = line.Trim();
-            //     Console.WriteLine(trimmedLine);
-            // }
             
             int colsMax = lines.Max(line => line.Length);
             
@@ -26,7 +18,7 @@ namespace Sokoban_Imperative
 
             for (int i = 0; i < rows; i++)
             {
-                string trimmedLine = lines[i].Trim();
+                string trimmedLine = lines[i].TrimEnd();
 
                 for (int j = 0; j < trimmedLine.Length; j++)
                 {
@@ -34,16 +26,6 @@ namespace Sokoban_Imperative
                     puzzle[i, j] = InitTile(symbol);
                 }
             }
-
-            // Just for testing purposes (makes sure that the puzzle object getting initialized)
-            // Console.WriteLine("Object to string test: ");
-            // for (int i = 0; i < rows; i++)
-            // {
-            //     for (int j = 0; j < colsMax; j++)
-            //     {
-            //         Console.WriteLine(puzzle[i, j]);
-            //     }
-            // }
             
             return puzzle;
         }
@@ -69,7 +51,7 @@ namespace Sokoban_Imperative
                 case 'G':
                     return TileType.Goal;
                 default:
-                    throw new ArgumentException("Invalid character in the puzzle.");
+                    throw new ArgumentException("Invalid character in the puzzle");
             }
         }
     }

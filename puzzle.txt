@@ -1,6 +1,6 @@
 XXXXX
-XO  X
-XB  X
-XX HX
+XP  X
+X B X
+XX GX
 XXXXX
 

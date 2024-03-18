@@ -5,6 +5,9 @@ using System.Text;
 
 namespace Sokoban_Imperative
 {
+    /*
+    * Represents the possible types of tiles in the Sokoban puzzle.
+    */
     public enum TileType
     {
         Wall,
@@ -16,6 +19,9 @@ namespace Sokoban_Imperative
         Goal
     }
     
+    /*
+    * Represents the possible directions the player can move in the Sokoban puzzle.
+    */
     public enum Direction
     {
         Up,
@@ -24,16 +30,34 @@ namespace Sokoban_Imperative
         Right
     }
     
+    /*
+    * Represents a Sokoban puzzle, as well as the player movement options within that puzzle
+    */
     public class SokobanPuzzle
     {
         private readonly TileType[,] _state;
+        /*
+        * Exposes the state of the puzzle.
+        */
+        public TileType[,] State => _state;
         
-        // This constructor copies an existing puzzle object, so that the game state can be modified.
+        /*
+        * Initializes a new instance of the SokobanPuzzle class with the provided initial state.
+        *
+        * Parameters:
+        *   initialState: The initial state of the puzzle represented as a 2D array of TileType values.
+        */
         public SokobanPuzzle(TileType[,] initialState)
         {
             _state = (TileType[,])initialState.Clone();
         }
 
+        /*
+        * Determines whether the puzzle is solved.
+        *
+        * Returns:
+        *   True if the puzzle is solved (all goal tiles are covered by boxes), otherwise false.
+        */
         public bool IsSolved()
         {
             foreach (var tile in _state)
@@ -44,6 +68,12 @@ namespace Sokoban_Imperative
             return true;
         }
         
+        /*
+        * Retrieves a collection of possible moves from the current puzzle state.
+        *
+        * Returns:
+        *   An IEnumerable collection of SokobanPuzzle instances representing possible moves from the current state.
+        */
         public IEnumerable<SokobanPuzzle> GetPossibleMoves()
         {
             List<SokobanPuzzle> possibleMoves = new List<SokobanPuzzle>();
@@ -75,9 +105,20 @@ namespace Sokoban_Imperative
             return possibleMoves;
         }
 
+        /*
+        * Determines whether a move to the specified position in the given direction is valid.
+        *
+        * Parameters:
+        *   row: The row index of the position to move to.
+        *   col: The column index of the position to move to.
+        *   direction: The direction of the move (Up, Down, Left, Right).
+        *
+        * Returns:
+        *   True if the move is valid, otherwise false.
+        */
         private bool IsValidMove(int row, int col, Direction direction)
         {
-            if (row < 0 || row >= _state.GetLength(0) || col < 0 || col >= _state.GetLength(1))
+            if (row < 0 || row >= _state.GetLength(0) - 1 || col < 0 || col >= _state.GetLength(1) - 1)
                 return false;
 
             TileType currentTile = _state[row, col];
@@ -99,6 +140,18 @@ namespace Sokoban_Imperative
             return true;
         }
 
+        /*
+        * Moves the player from one position to another in the puzzle state.
+        *
+        * Parameters:
+        *   fromRow: The row index of the current position of the player.
+        *   fromCol: The column index of the current position of the player.
+        *   toRow: The row index of the destination position.
+        *   toCol: The column index of the destination position.
+        *
+        * Returns:
+        *   A new SokobanPuzzle instance representing the puzzle state after the player has been moved.
+        */
         private SokobanPuzzle MovePLayer(int fromRow, int fromCol, int toRow, int toCol)
         {
             TileType[,] newState = (TileType[,])_state.Clone();
@@ -127,7 +180,9 @@ namespace Sokoban_Imperative
             return new SokobanPuzzle(newState);
         }
 
-        // Converts a puzzle object into a string
+        /*
+         * Converts a puzzle object into a string
+         */
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
