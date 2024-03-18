@@ -1,10 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Sokoban_Imperative
 {
-    public class SokobanSolver
+    /*
+    * The solver for our Sokoban puzzles.
+    */
+    public static class SokobanSolver
     {
+        /*
+        * Main of the SokobanSolver program.
+        */
         static void Main(string[] args)
         {
 
@@ -17,35 +24,50 @@ namespace Sokoban_Imperative
             }
             else
             {
-                TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
-                
-                if (importPuzzle == null)
+                try
                 {
-                    Console.WriteLine("Failed to import puzzle from the specified file.");
-                    return;
+                    TileType[,] importPuzzle = SokobanReader.FromFile(filePath);
+                    if (importPuzzle == null)
+                    {
+                        Console.WriteLine("Failed to import puzzle from the specified file.");
+                        return;
+                    }
+
+                    SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
+                    Stack<SokobanPuzzle> solutionStack = SolvePuzzle(puzzle);
+
+                    if (solutionStack.Count > 0)
+                    {
+                        SokobanPrint.PrintSolution(puzzle, solutionStack);
+                        Console.WriteLine("Puzzle solved.");
+                        
+                    }
+                    else
+                    {
+                        Console.WriteLine("No solution found.");
+                    }
                 }
-                
-                SokobanPuzzle puzzle = new SokobanPuzzle(importPuzzle);
-                            
-                // Just for testing purposes
-                // Console.WriteLine("ToString test:");
-                // Console.WriteLine(puzzle.ToString());
-                            
-                bool solved = SolvePuzzle(puzzle);
-                
-                if (solved)
+                catch (FileNotFoundException)
                 {
-                    Console.WriteLine("Puzzle solved: ");
-                    Console.WriteLine(puzzle.ToString());
+                    Console.WriteLine("File not found, or invalid filepath.");
                 }
-                else
+                catch (ArgumentException ex)
                 {
-                    Console.WriteLine("No solution found.");
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
 
-        public static bool SolvePuzzle(SokobanPuzzle startState)
+        /*
+        * Solves the Sokoban puzzle starting from the specified initial state.
+        *
+        * Parameters:
+        *   startState: The initial state of the Sokoban puzzle.
+        *
+        * Returns:
+        *   A stack of SokobanPuzzle instances representing the solution path, if found; otherwise, an empty stack.
+        */
+        public static Stack<SokobanPuzzle> SolvePuzzle(SokobanPuzzle startState)
         {
             Stack<SokobanPuzzle> stack = new Stack<SokobanPuzzle>();
             HashSet<string> visited = new HashSet<string>();
@@ -56,11 +78,11 @@ namespace Sokoban_Imperative
             while (stack.Count > 0)
             {
                 SokobanPuzzle current = stack.Peek();
-                Console.WriteLine(current.ToString());
+                //Console.WriteLine(current.ToString());
                 
                 if (current.IsSolved())
                 {
-                    return true;
+                    return stack;
                 }
 
                 bool foundMove = false;
@@ -83,7 +105,7 @@ namespace Sokoban_Imperative
                 }
             }
             
-            return false;
+            return new Stack<SokobanPuzzle>();
         }
     }
 }

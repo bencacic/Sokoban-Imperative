@@ -50,16 +50,22 @@
     <ItemGroup>
       <Content Include="puzzle.txt" />
       <Content Include="README.md" />
-      <Content Include="testPuzzles\puzzle1.txt" />
-      <Content Include="testPuzzles\SPuzzle2.txt" />
+      <Content Include="Spuzzle10.txt" />
+      <Content Include="testPuzzles\Fpuzzle2.txt" />
+      <Content Include="testPuzzles\Spuzzle2.txt" />
       <Content Include="testPuzzles\Spuzzle3.txt" />
       <Content Include="testPuzzles\Spuzzle4.txt" />
       <Content Include="testPuzzles\Spuzzle5.txt" />
       <Content Include="testPuzzles\Spuzzle6.txt" />
       <Content Include="testPuzzles\Spuzzle7.txt" />
+      <Content Include="testPuzzles\Fpuzzle3.txt" />
+      <Content Include="testPuzzles\Spuzzle8.txt" />
+      <Content Include="testPuzzles\Spuzzle9.txt" />
       <Content Include="testPuzzles\Upuzzle10.txt" />
       <Content Include="testPuzzles\Upuzzle11.txt" />
       <Content Include="testPuzzles\Upuzzle12.txt" />
+      <Content Include="testPuzzles\Fpuzzle1.txt" />
+      <Content Include="testPuzzles\Upuzzle13.txt" />
       <Content Include="testPuzzles\Upuzzle3.txt" />
       <Content Include="testPuzzles\Spuzzle1.txt" />
       <Content Include="testPuzzles\Upuzzle1.txt" />
@@ -67,7 +73,7 @@
       <Content Include="testPuzzles\Upuzzle4.txt" />
       <Content Include="testPuzzles\Upuzzle5.txt" />
       <Content Include="testPuzzles\Upuzzle6.txt" />
-      <Content Include="testPuzzles\UPuzzle7.txt" />
+      <Content Include="testPuzzles\Upuzzle7.txt" />
       <Content Include="testPuzzles\Upuzzle8.txt" />
       <Content Include="testPuzzles\Upuzzle9.txt" />
     </ItemGroup>

@@ -10,11 +10,8 @@ namespace Sokoban_Imperative
         {
             Stack<SokobanPuzzle> tempStack = new Stack<SokobanPuzzle>();
             
-
             SokobanPuzzle current = solutionStack.Pop();
             
-
-
             while (true)
             {
                 tempStack.Push(current);
