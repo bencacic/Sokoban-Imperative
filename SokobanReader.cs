@@ -4,8 +4,20 @@ using System.Linq;
 
 namespace Sokoban_Imperative
 {
+    /*
+     * Responsible for reading in our puzzle from a file.
+     */
     public static class SokobanReader
     {
+        /*
+         * Reads the puzzle from a file.
+         *
+         * Parameters:
+         *  filePath: The path to the file to be read.
+         *
+         * Returns:
+         *  An object made up of specific tile types; the puzzle as understood by the rest of the program.
+         */
         public static TileType[,] FromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -31,7 +43,15 @@ namespace Sokoban_Imperative
         }
         
         
-        // Builds the initial puzzle object from the input
+        /*
+         * Converts a character contained in the input file into its appropriate tile type.
+         *
+         * Parameters:
+         *  symbol: The specific character symbol being looked at.
+         *
+         * Returns:
+         *  The tile type of the given character.
+         */
         private static TileType InitTile(char symbol)
         {
             switch (symbol)
