@@ -68,8 +68,8 @@ namespace Sokoban_Imperative
         }
         
         /*
-        * Retrieves a collection of possible moves from the current puzzle state. As soon as a non-badMove is found,
-        * we return the list, to avoid wasting time calculating moves that won't be used.
+        * Retrieves a list of possible moves from the current puzzle state. The list is ordered such that badMoves are
+        * placed at the back, and so tried last.
         *
         * Returns:
         *   An IEnumerable collection of SokobanPuzzle instances representing possible moves from the current state.
@@ -101,7 +101,6 @@ namespace Sokoban_Imperative
                                 else
                                 {
                                     possibleMoves.Add(newMove);
-                                    return possibleMoves;
                                 }
                             }
                         }
@@ -111,7 +110,8 @@ namespace Sokoban_Imperative
                 }
             }
             
-            return badMoves;
+            possibleMoves.AddRange(badMoves);
+            return possibleMoves;
         }
 
         /*
