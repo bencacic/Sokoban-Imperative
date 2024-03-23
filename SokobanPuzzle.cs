@@ -68,7 +68,8 @@ namespace Sokoban_Imperative
         }
         
         /*
-        * Retrieves a collection of possible moves from the current puzzle state.
+        * Retrieves a collection of possible moves from the current puzzle state. As soon as a non-badMove is found,
+        * we return the list, to avoid wasting time calculating moves that won't be used.
         *
         * Returns:
         *   An IEnumerable collection of SokobanPuzzle instances representing possible moves from the current state.
@@ -76,6 +77,7 @@ namespace Sokoban_Imperative
         public IEnumerable<SokobanPuzzle> GetPossibleMoves()
         {
             List<SokobanPuzzle> possibleMoves = new List<SokobanPuzzle>();
+            List<SokobanPuzzle> badMoves = new List<SokobanPuzzle>();
             int[,] directions = { { -1, 0 }, { 1, 0 }, { 0, -1 }, { 0, 1 } }; // Up, Down, Left, Right
             
             for (int i = 0; i < _state.GetLength(0); i++)
@@ -92,7 +94,15 @@ namespace Sokoban_Imperative
                             if (IsValidMove(newX, newY, (Direction)k))
                             {
                                 SokobanPuzzle newMove = MovePLayer(i, j, newX, newY);
-                                possibleMoves.Add(newMove);
+                                if (IsBadMove(newX, newY, (Direction)k))
+                                {
+                                    badMoves.Add(newMove);
+                                }
+                                else
+                                {
+                                    possibleMoves.Add(newMove);
+                                    return possibleMoves;
+                                }
                             }
                         }
 
@@ -100,8 +110,8 @@ namespace Sokoban_Imperative
                     }
                 }
             }
-
-            return possibleMoves;
+            
+            return badMoves;
         }
 
         /*
@@ -137,6 +147,47 @@ namespace Sokoban_Imperative
             }
 
             return true;
+        }
+
+        /*
+         * Determines whether the move being made is 'bad' or not. Currently, moving a box into a corner, from which it
+         * cannot be moved and which is not a goal space, is a bad move, and moving a box off of a goal is a bad move.
+         *
+         * Parameters:
+         *  row: The row index of the position to move to.
+         *  col: The column index of the position to move to.
+         *  direction: The direction of the move (Up, Down, Left, Right).
+         *
+         * Returns:
+         *  True if the move is bad, false if not.
+         */
+        private bool IsBadMove(int row, int col, Direction direction)
+        {
+            TileType currentTile = _state[row, col];
+
+            if (currentTile == TileType.BoxGoal)
+            {
+                return true;
+            }
+
+            if (currentTile == TileType.Box)
+            {
+                int behindRow = row + (direction == Direction.Down ? 1 : direction == Direction.Up ? -1 : 0);
+                int behindCol = col + (direction == Direction.Right ? 1 : direction == Direction.Left ? -1 : 0);
+                
+                if (_state[behindRow, behindCol] != TileType.Goal)
+                {
+                    bool frontBackWall = _state[behindRow + 1, behindCol] == TileType.Wall || 
+                                         _state[behindRow - 1, behindCol] == TileType.Wall;
+                
+                    bool leftRightWall = _state[behindRow, behindCol + 1] == TileType.Wall || 
+                                         _state[behindRow, behindCol - 1] == TileType.Wall;
+
+                    return frontBackWall && leftRightWall;
+                }
+            }
+
+            return false;
         }
 
         /*
