@@ -115,7 +115,8 @@ namespace Sokoban_Imperative
         }
 
         /*
-        * Determines whether a move to the specified position in the given direction is valid.
+        * Determines whether a move to the specified position in the given direction is valid. It is invalid if the
+        * move is impossible, or if the move would result in pushing a box into a non-goal corner (a failed state).
         *
         * Parameters:
         *   row: The row index of the position to move to.
@@ -144,14 +145,24 @@ namespace Sokoban_Imperative
 
                 if (behindTile == TileType.Wall || behindTile == TileType.Box || behindTile == TileType.BoxGoal)
                     return false;
+                
+                if (_state[behindRow, behindCol] != TileType.Goal)
+                {
+                    bool frontBackWall = _state[behindRow + 1, behindCol] == TileType.Wall || 
+                                         _state[behindRow - 1, behindCol] == TileType.Wall;
+                
+                    bool leftRightWall = _state[behindRow, behindCol + 1] == TileType.Wall || 
+                                         _state[behindRow, behindCol - 1] == TileType.Wall;
+
+                    return !(frontBackWall && leftRightWall);
+                }
             }
 
             return true;
         }
 
         /*
-         * Determines whether the move being made is 'bad' or not. Currently, moving a box into a corner, from which it
-         * cannot be moved and which is not a goal space, is a bad move, and moving a box off of a goal is a bad move.
+         * Determines whether the move being made is 'bad' or not. Currently, moving a box off of a goal is a bad move.
          *
          * Parameters:
          *  row: The row index of the position to move to.
@@ -168,23 +179,6 @@ namespace Sokoban_Imperative
             if (currentTile == TileType.BoxGoal)
             {
                 return true;
-            }
-
-            if (currentTile == TileType.Box)
-            {
-                int behindRow = row + (direction == Direction.Down ? 1 : direction == Direction.Up ? -1 : 0);
-                int behindCol = col + (direction == Direction.Right ? 1 : direction == Direction.Left ? -1 : 0);
-                
-                if (_state[behindRow, behindCol] != TileType.Goal)
-                {
-                    bool frontBackWall = _state[behindRow + 1, behindCol] == TileType.Wall || 
-                                         _state[behindRow - 1, behindCol] == TileType.Wall;
-                
-                    bool leftRightWall = _state[behindRow, behindCol + 1] == TileType.Wall || 
-                                         _state[behindRow, behindCol - 1] == TileType.Wall;
-
-                    return frontBackWall && leftRightWall;
-                }
             }
 
             return false;
