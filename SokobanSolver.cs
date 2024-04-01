@@ -44,6 +44,7 @@ namespace Sokoban_Imperative
                     }
                     else
                     {
+                        Console.WriteLine(puzzle.ToString());
                         Console.WriteLine("No solution found.");
                     }
                 }
