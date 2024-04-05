@@ -23,6 +23,7 @@ namespace Sokoban_Imperative
             string[] lines = File.ReadAllLines(filePath);
             int rows = lines.Length;
             int cols = lines[0].Length;
+            int playerCount = 0;
             
             int colsMax = lines.Max(line => line.Length);
             
@@ -36,6 +37,16 @@ namespace Sokoban_Imperative
                 {
                     char symbol = trimmedLine[j];
                     puzzle[i, j] = InitTile(symbol);
+
+                    if (symbol == 'P')
+                    {
+                        playerCount++;
+
+                        if (playerCount > 1)
+                        {
+                            throw new ArgumentException("More than one player in the puzzle");
+                        }
+                    }
                 }
             }
             
