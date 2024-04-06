@@ -23,11 +23,25 @@ namespace Sokoban_Imperative
             string[] lines = File.ReadAllLines(filePath);
             int rows = lines.Length;
             int cols = lines[0].Length;
+            int colsMax = lines.Max(line => line.Length) + 2;
             int playerCount = 0;
             
-            int colsMax = lines.Max(line => line.Length);
-            
-            TileType[,] puzzle = new TileType[rows, colsMax];
+            TileType[,] puzzle = new TileType[rows + 2, colsMax];
+
+            for (int i = 0; i < rows + 2; i++)
+            {
+                for (int j = 0; j < colsMax; j++)
+                {
+                    if (i == 0 || i == rows + 1 || j == 0 || j == colsMax - 1)
+                    {
+                        puzzle[i, j] = TileType.Wall;
+                    }
+                    else
+                    {
+                        puzzle[i, j] = TileType.Empty;
+                    }
+                }
+            }
 
             for (int i = 0; i < rows; i++)
             {
@@ -36,7 +50,7 @@ namespace Sokoban_Imperative
                 for (int j = 0; j < trimmedLine.Length; j++)
                 {
                     char symbol = trimmedLine[j];
-                    puzzle[i, j] = InitTile(symbol);
+                    puzzle[i + 1, j + 1] = InitTile(symbol);
 
                     if (symbol == 'P')
                     {

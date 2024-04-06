@@ -50,9 +50,10 @@
     <ItemGroup>
       <Content Include="puzzle.txt" />
       <Content Include="README.md" />
-      <Content Include="Spuzzle10.txt" />
+      <Content Include="MegaPuzzle.txt" />
       <Content Include="testPuzzles\Fpuzzle2.txt" />
       <Content Include="testPuzzles\Fpuzzle4.txt" />
+      <Content Include="testPuzzles\Spuzzle10.txt" />
       <Content Include="testPuzzles\Spuzzle2.txt" />
       <Content Include="testPuzzles\Spuzzle3.txt" />
       <Content Include="testPuzzles\Spuzzle4.txt" />
