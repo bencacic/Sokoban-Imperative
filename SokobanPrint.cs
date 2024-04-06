@@ -70,6 +70,8 @@ namespace Sokoban_Imperative
         // Determine the direction of movement
         if (prev != null)
         {
+            //Console.WriteLine();
+            
             Console.WriteLine(GetDirection(prev, current));
             
         }
@@ -79,11 +81,54 @@ namespace Sokoban_Imperative
            // Console.WriteLine("*None*");
         }
         
-
-        Console.WriteLine(current.ToString());
+        
+        //Console.WriteLine(current.ToString());
+        // Print the puzzle state without the additional rows and columns
+        PrintPuzzleState(current);
 
         prev = current;
     }
+}
+
+public static void PrintPuzzleState(SokobanPuzzle puzzle)
+{
+    TileType[,] state = puzzle.State;
+    int rows = state.GetLength(0);
+    int cols = state.GetLength(1);
+
+    for (int i = 1; i < rows - 1; i++)
+    {
+        for (int j = 1; j < cols - 1; j++)
+        {
+            switch (state[i, j])
+            {
+                case TileType.Wall:
+                    Console.Write('X');
+                    break;
+                case TileType.Empty:
+                    Console.Write(' ');
+                    break;
+                case TileType.Player:
+                    Console.Write('P');
+                    break;
+                case TileType.PlayerGoal:
+                    Console.Write('O');
+                    break;
+                case TileType.Box:
+                    Console.Write('B');
+                    break;
+                case TileType.BoxGoal:
+                    Console.Write('H');
+                    break;
+                case TileType.Goal:
+                    Console.Write('G');
+                    break;
+            }
+        }
+
+        Console.WriteLine();
+    }
+    Console.WriteLine();
 }
 
 private static string GetDirection(SokobanPuzzle prev, SokobanPuzzle current)
