@@ -22,7 +22,12 @@ namespace Sokoban_Imperative
         {
             string[] lines = File.ReadAllLines(filePath);
             int rows = lines.Length;
-            int cols = lines[0].Length;
+            
+            if (lines.Length == 0)
+            {
+                throw new ArgumentException("File is empty");
+            }
+            
             int colsMax = lines.Max(line => line.Length) + 2;
             int playerCount = 0;
             

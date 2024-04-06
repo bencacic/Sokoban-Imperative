@@ -56,10 +56,6 @@ namespace Sokoban_Imperative
                 {
                     Console.WriteLine(ex.Message);
                 }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("File was empty");
-                }
             }
         }
 

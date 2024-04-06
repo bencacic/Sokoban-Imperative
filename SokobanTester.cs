@@ -32,10 +32,6 @@ namespace Sokoban_Imperative
                 {
                     Console.WriteLine(ex.Message + ": " + fileName);
                 }
-                catch (IndexOutOfRangeException)
-                {
-                    Console.WriteLine("Empty file: " + fileName);
-                }
             }
         }
     }
