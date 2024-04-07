@@ -22,14 +22,10 @@ namespace Sokoban_Imperative
         {
             string[] lines = File.ReadAllLines(filePath);
             int rows = lines.Length;
-            
-            if (lines.Length == 0)
-            {
-                throw new ArgumentException("File is empty");
-            }
-            
             int colsMax = lines.Max(line => line.Length) + 2;
             int playerCount = 0;
+            int boxCount = 0;
+            int goalCount = 0;
             
             TileType[,] puzzle = new TileType[rows + 2, colsMax];
 
@@ -56,22 +52,46 @@ namespace Sokoban_Imperative
                 {
                     char symbol = trimmedLine[j];
                     puzzle[i + 1, j + 1] = InitTile(symbol);
-
-                    if (symbol == 'P')
-                    {
-                        playerCount++;
-
-                        if (playerCount > 1)
+                        if (symbol == 'P')
                         {
-                            throw new ArgumentException("More than one player in the puzzle");
+                            playerCount++;
                         }
-                    }
+                        else if (symbol == 'B')
+                        {
+                            boxCount++;
+                        }
+                        else if (symbol == 'G')
+                        {
+                            goalCount++;
+                        }
+                        
                 }
             }
-            
+            ErrorEventArgs( playerCount,  boxCount,  goalCount, rows);
             return puzzle;
         }
-        
+
+        private static void ErrorEventArgs(int players, int boxes, int goals, int rows)
+        {
+            if (rows == 0)
+            {
+                throw new ArgumentException("File is empty");
+            }
+            if (players > 1)
+            {
+                throw new ArgumentException("More than one player in the puzzle");
+            }
+            if (players == 0 && goals > 0)
+            {
+                throw new ArgumentException("There is a goal without player in the puzzle");
+            } 
+            if (boxes < goals)
+            {
+                throw new ArgumentException("More goals than boxes in the puzzle");
+                
+            }
+            
+        }
         
         /*
          * Converts a character contained in the input file into its appropriate tile type.
