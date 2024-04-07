@@ -84,11 +84,11 @@ namespace Sokoban_Imperative
             }
             if (players == 0 && goals > 0)
             {
-                throw new ArgumentException("There is a goal without player in the puzzle");
+                throw new ArgumentException("There is a goal without a player in the puzzle.");
             } 
             if (boxes < goals)
             {
-                throw new ArgumentException("More goals than boxes in the puzzle");
+                throw new ArgumentException("There are more goals than boxes in the puzzle");
                 
             }
             

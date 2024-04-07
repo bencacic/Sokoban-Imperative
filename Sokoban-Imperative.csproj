@@ -63,11 +63,11 @@
       <Content Include="testPuzzles\Fpuzzle3.txt" />
       <Content Include="testPuzzles\Spuzzle8.txt" />
       <Content Include="testPuzzles\Spuzzle9.txt" />
-      <Content Include="testPuzzles\Upuzzle10.txt" />
-      <Content Include="testPuzzles\Upuzzle11.txt" />
-      <Content Include="testPuzzles\Upuzzle12.txt" />
+      <Content Include="testPuzzles\Fpuzzle6.txt" />
+      <Content Include="testPuzzles\Upuzzle7.txt" />
+      <Content Include="testPuzzles\Fpuzzle7.txt" />
       <Content Include="testPuzzles\Fpuzzle1.txt" />
-      <Content Include="testPuzzles\Upuzzle13.txt" />
+      <Content Include="testPuzzles\Fpuzzle8.txt" />
       <Content Include="testPuzzles\Upuzzle3.txt" />
       <Content Include="testPuzzles\Spuzzle1.txt" />
       <Content Include="testPuzzles\Upuzzle1.txt" />
@@ -75,7 +75,7 @@
       <Content Include="testPuzzles\Upuzzle4.txt" />
       <Content Include="testPuzzles\Upuzzle5.txt" />
       <Content Include="testPuzzles\Upuzzle6.txt" />
-      <Content Include="testPuzzles\Upuzzle7.txt" />
+      <Content Include="testPuzzles\Fpuzzle5.txt" />
       <Content Include="testPuzzles\Upuzzle8.txt" />
       <Content Include="testPuzzles\Upuzzle9.txt" />
     </ItemGroup>
