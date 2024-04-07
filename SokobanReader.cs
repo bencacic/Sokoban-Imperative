@@ -22,6 +22,10 @@ namespace Sokoban_Imperative
         {
             string[] lines = File.ReadAllLines(filePath);
             int rows = lines.Length;
+            if (rows == 0)
+            {
+                throw new ArgumentException("File is empty");
+            }
             int colsMax = lines.Max(line => line.Length) + 2;
             int playerCount = 0;
             int boxCount = 0;
@@ -73,10 +77,7 @@ namespace Sokoban_Imperative
 
         private static void ErrorEventArgs(int players, int boxes, int goals, int rows)
         {
-            if (rows == 0)
-            {
-                throw new ArgumentException("File is empty");
-            }
+            
             if (players > 1)
             {
                 throw new ArgumentException("More than one player in the puzzle");
