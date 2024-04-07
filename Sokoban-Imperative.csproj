@@ -48,6 +48,7 @@
         <Compile Include="SokobanTester.cs" />
     </ItemGroup>
     <ItemGroup>
+      <Content Include="Makefile" />
       <Content Include="puzzle.txt" />
       <Content Include="README.md" />
       <Content Include="MegaPuzzle.txt" />
