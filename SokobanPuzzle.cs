@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Sokoban_Imperative
 {
-    /*
-    * Represents the possible types of tiles in the Sokoban puzzle.
-    */
+    /// <summary>
+    ///     Represents the possible types of tiles in the Sokoban puzzle.
+    /// </summary>
     public enum TileType
     {
         Wall,
@@ -18,9 +18,9 @@ namespace Sokoban_Imperative
         Goal
     }
     
-    /*
-    * Represents the possible directions the player can move in the Sokoban puzzle.
-    */
+    /// <summary>
+    ///     Represents the possible directions the player can move in the Sokoban puzzle.
+    /// </summary>
     public enum Direction
     {
         Up,
@@ -29,34 +29,38 @@ namespace Sokoban_Imperative
         Right
     }
     
-    /*
-    * Represents a Sokoban puzzle, as well as the player movement options within that puzzle
-    */
+    /// <summary>
+    /// Class <c>SokobanPuzzle</c>
+    ///     Represents a Sokoban puzzle, as well as the player movement options within that puzzle.
+    /// </summary>
     public class SokobanPuzzle
     {
         private readonly TileType[,] _state;
-        /*
-        * Exposes the state of the puzzle.
-        */
+        
+        /// <summary>
+        ///     Allows external access to the state of the puzzle.
+        /// </summary>
         public TileType[,] State => _state;
         
-        /*
-        * Initializes a new instance of the SokobanPuzzle class with the provided initial state.
-        *
-        * Parameters:
-        *   initialState: The initial state of the puzzle represented as a 2D array of TileType values.
-        */
+        /// <summary>
+        /// Constructor <c>SokobanPuzzle</c>
+        ///     Initializes a new instance of the SokobanPuzzle class with the provided initial state.
+        /// </summary>
+        /// <param name="initialState">The initial state of the puzzle
+        ///     represented as a 2D array of TileType values.</param>
         public SokobanPuzzle(TileType[,] initialState)
         {
             _state = (TileType[,])initialState.Clone();
         }
 
-        /*
-        * Determines whether the puzzle is solved.
-        *
-        * Returns:
-        *   True if the puzzle is solved (all goal tiles are covered by boxes), otherwise false.
-        */
+        /// <summary>
+        /// Method <c>IsSolved</c>
+        ///     Determines whether the puzzle is solved.
+        /// </summary>
+        /// <returns>
+        ///     A Bool that is true if the puzzle is solved
+        ///     (all goal tiles are covered by boxes), otherwise false.
+        /// </returns>
         public bool IsSolved()
         {
             foreach (var tile in _state)
@@ -67,13 +71,15 @@ namespace Sokoban_Imperative
             return true;
         }
         
-        /*
-        * Retrieves a list of possible moves from the current puzzle state. The list is ordered such that badMoves are
-        * placed at the back, and so tried last.
-        *
-        * Returns:
-        *   An IEnumerable collection of SokobanPuzzle instances representing possible moves from the current state.
-        */
+        /// <summary>
+        /// Method <c>IsEnumerable</c>
+        ///     Retrieves a list of possible moves from the current puzzle state.
+        ///     The list is ordered such that badMoves are placed at the back, and so tried last.
+        /// </summary>
+        /// <returns>
+        ///     An IEnumerable collection of SokobanPuzzle instances
+        ///     representing possible moves from the current state.
+        /// </returns>
         public IEnumerable<SokobanPuzzle> GetPossibleMoves()
         {
             List<SokobanPuzzle> possibleMoves = new List<SokobanPuzzle>();
@@ -104,28 +110,32 @@ namespace Sokoban_Imperative
                                 }
                             }
                         }
-
                         break;
                     }
                 }
             }
-            
             possibleMoves.AddRange(badMoves);
             return possibleMoves;
         }
 
-        /*
-        * Determines whether a move to the specified position in the given direction is valid. It is invalid if the
-        * move is impossible, or if the move would result in pushing a box into a non-goal corner (a failed state).
-        *
-        * Parameters:
-        *   row: The row index of the position to move to.
-        *   col: The column index of the position to move to.
-        *   direction: The direction of the move (Up, Down, Left, Right).
-        *
-        * Returns:
-        *   True if the move is valid, otherwise false.
-        */
+        /// <summary>
+        /// Method <c>IsValidMove</c>
+        ///     Determines whether a move to the specified position in the given direction
+        ///     is valid. It is invalid if the move is impossible, or if the move would result
+        ///     in pushing a box into a non-goal corner (a failed state).
+        /// </summary>
+        /// <param name="row">
+        ///     The row index of the position to move to.
+        /// </param>
+        /// <param name="col">
+        ///     The column index of the position to move to.
+        /// </param>
+        /// <param name="direction">
+        ///     The direction of the move (Up, Down, Left, Right).
+        /// </param>
+        /// <returns>
+        ///     A Bool that is true if the move is valid, otherwise false.
+        /// </returns>
         private bool IsValidMove(int row, int col, Direction direction)
         {
             if (row < 0 || row >= _state.GetLength(0) - 1 || col < 0 || col >= _state.GetLength(1) - 1)
@@ -161,17 +171,23 @@ namespace Sokoban_Imperative
             return true;
         }
 
-        /*
-         * Determines whether the move being made is 'bad' or not. Currently, moving a box off of a goal is a bad move.
-         *
-         * Parameters:
-         *  row: The row index of the position to move to.
-         *  col: The column index of the position to move to.
-         *  direction: The direction of the move (Up, Down, Left, Right).
-         *
-         * Returns:
-         *  True if the move is bad, false if not.
-         */
+        /// <summary>
+        /// Method <c>IsBadMove</c>
+        ///     Determines whether the move being made is 'bad' or not.
+        ///     Currently, moving a box off of a goal is a bad move.
+        /// </summary>
+        /// <param name="row">
+        ///     The row index of the position to move to.
+        /// </param>
+        /// <param name="col">
+        ///     The column index of the position to move to.
+        /// </param>
+        /// <param name="direction">
+        ///     The direction of the move (Up, Down, Left, Right).
+        /// </param>
+        /// <returns>
+        ///     A Bool that is true if the move is bad, otherwise false.
+        /// </returns>
         private bool IsBadMove(int row, int col, Direction direction)
         {
             TileType currentTile = _state[row, col];
@@ -184,18 +200,25 @@ namespace Sokoban_Imperative
             return false;
         }
 
-        /*
-        * Moves the player from one position to another in the puzzle state.
-        *
-        * Parameters:
-        *   fromRow: The row index of the current position of the player.
-        *   fromCol: The column index of the current position of the player.
-        *   toRow: The row index of the destination position.
-        *   toCol: The column index of the destination position.
-        *
-        * Returns:
-        *   A new SokobanPuzzle instance representing the puzzle state after the player has been moved.
-        */
+        /// <summary>
+        /// Method <c>MovePlayer</c>
+        ///     Moves the player from one position to another in the puzzle state.
+        /// </summary>
+        /// <param name="fromRow">
+        ///     The row index of the current position of the player.
+        /// </param>
+        /// <param name="fromCol">
+        ///     The column index of the current position of the player.
+        /// </param>
+        /// <param name="toRow">
+        ///     The row index of the destination position.
+        /// </param>
+        /// <param name="toCol">
+        ///     The column index of the destination position.
+        /// </param>
+        /// <returns>
+        ///     A new SokobanPuzzle instance representing the puzzle state after the player has been moved.
+        /// </returns>
         private SokobanPuzzle MovePLayer(int fromRow, int fromCol, int toRow, int toCol)
         {
             TileType[,] newState = (TileType[,])_state.Clone();
@@ -224,9 +247,10 @@ namespace Sokoban_Imperative
             return new SokobanPuzzle(newState);
         }
 
-        /*
-         * Converts a puzzle object into a string
-         */
+        /// <summary>
+        /// Method <c>ToString</c>
+        ///     Converts a puzzle object into a string.
+        /// </summary>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
