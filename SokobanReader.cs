@@ -4,20 +4,21 @@ using System.Linq;
 
 namespace Sokoban_Imperative
 {
-    /*
-     * Responsible for reading in our puzzle from a file.
-     */
+    /// <summary>
+    /// Class <c>SokobanReader</c> Handles all input in the form of reading in a puzzle from a file.
+    /// </summary>
     public static class SokobanReader
     {
-        /*
-         * Reads the puzzle from a file.
-         *
-         * Parameters:
-         *  filePath: The path to the file to be read.
-         *
-         * Returns:
-         *  An object made up of specific tile types; the puzzle as understood by the rest of the program.
-         */
+        /// <summary>
+        /// Method <c>FromFile</c>
+        ///     Reads the puzzle from a file.
+        /// </summary>
+        /// <param name="filePath">
+        ///     The path to the file to be read.
+        /// </param>
+        /// <returns>
+        ///     An object made up of specific tile types; the puzzle as understood by the rest of the program.
+        /// </returns>
         public static TileType[,] FromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
@@ -75,9 +76,25 @@ namespace Sokoban_Imperative
             return puzzle;
         }
 
+        /// <summary>
+        /// Method <c>ErrorEventArgs</c>
+        ///     Performs sanity checks on the initial state of the puzzle to check for
+        ///     specific conditions.
+        /// </summary>
+        /// <param name="players">
+        ///     The number of players that were found in the initial puzzle state.
+        /// </param>
+        /// <param name="boxes">
+        ///     The number of boxes that were found in the initial puzzle state.
+        /// </param>
+        /// <param name="goals">
+        ///     The number of goals that were found in the initial puzzle state.
+        /// </param>
+        /// <param name="rows">
+        ///     The number of rows that were found in the initial puzzle state.
+        /// </param>
         private static void ErrorEventArgs(int players, int boxes, int goals, int rows)
         {
-            
             if (players > 1)
             {
                 throw new ArgumentException("More than one player in the puzzle");
@@ -89,20 +106,19 @@ namespace Sokoban_Imperative
             if (boxes < goals)
             {
                 throw new ArgumentException("There are more goals than boxes in the puzzle");
-                
             }
-            
         }
         
-        /*
-         * Converts a character contained in the input file into its appropriate tile type.
-         *
-         * Parameters:
-         *  symbol: The specific character symbol being looked at.
-         *
-         * Returns:
-         *  The tile type of the given character.
-         */
+        /// <summary>
+        /// Method <c>InitTile</c>
+        ///     Converts a character contained in the input file into its appropriate tile type.
+        /// </summary>
+        /// <param name="symbol">
+        ///     The specific character symbol being looked at.
+        /// </param>
+        /// <returns>
+        ///     The tile type of the given character.
+        /// </returns>
         private static TileType InitTile(char symbol)
         {
             switch (symbol)

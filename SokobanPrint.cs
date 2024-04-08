@@ -4,15 +4,20 @@ using System.Collections.Generic;
 namespace Sokoban_Imperative
 {
     /// <summary>
-    /// Class <c>SokobanPrint</c> Handles all output regarding the puzzle state and solution.
+    /// Class <c>SokobanPrint</c>
+    ///     Handles all output regarding the puzzle state and solution.
     /// </summary>
     public static class SokobanPrint
     {
         /// <summary>
-        /// Method <c>PrintSolution</c> Prints the solution steps of the solved puzzle.
+        /// Method <c>PrintSolution</c>
+        ///     Prints the solution steps of the solved puzzle.
         /// </summary>
-        /// <param name="startState">The initial state of the puzzle.</param>
-        /// <param name="solutionStack">The steps the solver took to produce a solution.</param>
+        /// <param name="startState">
+        ///     The initial state of the puzzle.</param>
+        /// <param name="solutionStack">
+        ///     The steps the solver took to produce a solution.
+        /// </param>
        public static void PrintSolution(SokobanPuzzle startState, Stack<SokobanPuzzle> solutionStack)
         {
             Stack<SokobanPuzzle> tempStack = new Stack<SokobanPuzzle>();
@@ -54,9 +59,12 @@ namespace Sokoban_Imperative
         }
         
         /// <summary>
-        /// Method <c>PrintPuzzleState</c> Prints the current state of the puzzle.
+        /// Method <c>PrintPuzzleState</c>
+        ///     Prints the current state of the puzzle.
         /// </summary>
-        /// <param name="puzzle">The state of the puzzle.</param>
+        /// <param name="puzzle">
+        ///     The state of the puzzle.
+        /// </param>
         public static void PrintPuzzleState(SokobanPuzzle puzzle)
         {
             TileType[,] state = puzzle.State;
@@ -104,8 +112,10 @@ namespace Sokoban_Imperative
         ///     solution is found in order to reduce the total number of processes (in
         ///     the case that the puzzle is unsolvable).
         /// </summary>
-        /// <param name="prev">The previous state of the puzzle.</param>
-        /// <param name="current">The current state of the puzzle.</param>
+        /// <param name="prev">
+        ///     The previous state of the puzzle.</param>
+        /// <param name="current">
+        ///     The current state of the puzzle.</param>
         /// <returns>
         ///     A string representing the direction that the player has moved between two
         ///     consecutive game states.
@@ -147,9 +157,11 @@ namespace Sokoban_Imperative
             return "*None*";
         }
         /// <summary>
-        /// Method <c>GetPlayerRow</c> Called by GetDirection to determine the X coordinate of the player.
+        /// Method <c>GetPlayerRow</c>
+        ///     Called by GetDirection to determine the X coordinate of the player.
         /// </summary>
-        /// <param name="puzzle">The state of the puzzle.</param>
+        /// <param name="puzzle">
+        ///     The state of the puzzle.</param>
         /// <returns>
         ///     An int that contains the row that the player is on a particular state.
         /// </returns>
@@ -170,9 +182,11 @@ namespace Sokoban_Imperative
         }
 
         /// <summary>
-        /// Method <c>GetPlayerCol</c> Called by GetDirection to determine the Y coordinate of the player.
+        /// Method <c>GetPlayerCol</c>
+        ///     Called by GetDirection to determine the Y coordinate of the player.
         /// </summary>
-        /// <param name="puzzle">The state of the puzzle.</param>
+        /// <param name="puzzle">
+        ///     The state of the puzzle.</param>
         /// <returns>
         ///     An int that contains the column that the player is on a particular state.
         /// </returns>
