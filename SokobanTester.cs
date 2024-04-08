@@ -4,14 +4,16 @@ using System.IO;
 
 namespace Sokoban_Imperative
 {
-    /*
-    * The tester for our Sokoban puzzles; anything in our testPuzzles folder will be tested.
-    */
+    /// <summary>
+    /// Class <c>SokobanTester</c> The tester for our Sokoban puzzles.
+    ///     Everything in the testPuzzles directory will be tested.
+    /// </summary>
     public static class SokobanTester
     {
-        /*
-        * Runs a series of test puzzles located in the specified folder path.
-        */
+        /// <summary>
+        /// Method <c>Test</c>
+        ///     Runs a series of test puzzles located in the specified folder path.
+        /// </summary>
         public static void Test()
         {
             string folderPath = "../../testPuzzles";

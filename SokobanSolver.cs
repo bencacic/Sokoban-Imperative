@@ -4,14 +4,16 @@ using System.IO;
 
 namespace Sokoban_Imperative
 {
-    /*
-    * The solver for our Sokoban puzzles.
-    */
+    /// <summary>
+    /// Class <c>SokobanSolver</c> The solver for a Sokoban puzzle.
+    /// </summary>
     public static class SokobanSolver
     {
-        /*
-        * Main of the SokobanSolver program.
-        */
+        
+        /// <summary>
+        /// Method <c>Main</c>
+        ///     Main for the sokoban solver.
+        /// </summary>
         static void Main(string[] args)
         {
 
@@ -40,11 +42,9 @@ namespace Sokoban_Imperative
                     {
                         SokobanPrint.PrintSolution(puzzle, solutionStack);
                         Console.WriteLine("Puzzle solved.");
-
                     }
                     else
                     {
-                        //Console.WriteLine(puzzle.ToString());
                         SokobanPrint.PrintPuzzleState(puzzle);
                         Console.WriteLine("No solution found.");
                     }
@@ -60,15 +60,16 @@ namespace Sokoban_Imperative
             }
         }
 
-        /*
-        * Solves the Sokoban puzzle starting from the specified initial state.
-        *
-        * Parameters:
-        *   startState: The initial state of the Sokoban puzzle.
-        *
-        * Returns:
-        *   A stack of SokobanPuzzle instances representing the solution path, if found; otherwise, an empty stack.
-        */
+        /// <summary>
+        /// Method <c>SolvePuzzle</c>
+        ///     Solves the Sokoban puzzle starting from the specified initial state.
+        /// </summary>
+        /// <param name="startState">
+        ///     The initial state of the Sokoban puzzle.
+        /// </param>
+        /// <returns>
+        ///     A stack of SokobanPuzzle instances representing the solution path, if found; otherwise, an empty stack.
+        /// </returns>
         public static Stack<SokobanPuzzle> SolvePuzzle(SokobanPuzzle startState)
         {
             Stack<SokobanPuzzle> stack = new Stack<SokobanPuzzle>();
@@ -80,7 +81,6 @@ namespace Sokoban_Imperative
             while (stack.Count > 0)
             {
                 SokobanPuzzle current = stack.Peek();
-                //Console.WriteLine(current.ToString());
                 
                 if (current.IsSolved())
                 {
