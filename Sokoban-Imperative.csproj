@@ -49,7 +49,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="Makefile" />
-      <Content Include="puzzle.txt" />
+      <Content Include="IssuePuzzle.txt" />
       <Content Include="README.md" />
       <Content Include="MegaPuzzle.txt" />
       <Content Include="testPuzzles\Fpuzzle2.txt" />
